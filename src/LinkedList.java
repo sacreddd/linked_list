@@ -62,9 +62,10 @@ class LinkedList<T> implements SimpleCollection<T> {
     }
 
 
-    public void addInd(T data, int index) {
+    public void add(T data, int index) {
         if (index >= size || size == 0) {
             this.add(data);
+
         } else {
             Node<T> start = this.head;
             Node<T> newNode = new Node<T>(null, data, null);
@@ -135,13 +136,14 @@ class LinkedList<T> implements SimpleCollection<T> {
         this.size--;
     }
 
-    public void reverse(int coef) {
-        int counter = this.size;
+    public void notOptimizedReverse(int coef) {
+        int stopCounter = this.size;
         Node<T> next = this.head;
-        int cnt = 0;
-        while (coef <= counter) {
-            Node<T> temp = next;
+        int indexCounter = 0;
+        int test = 0;
+        while (coef <= stopCounter) {
             for (int i = 1; i <= coef; i++) {
+                test++;
                 if (i == coef) {
                     Node<T> last = next;
                     Node<T> last2;
@@ -149,11 +151,12 @@ class LinkedList<T> implements SimpleCollection<T> {
                         next = next.getNext();
                     }
                     for (int k = 1; k <= coef; k++) {
+                        test++;
                         last2 = last.getPrev();
-                        addInd(last.getData(), cnt);
+                        add(last.getData(), indexCounter);
                         unlink(last);
                         last = last2;
-                        cnt++;
+                        indexCounter++;
                     }
                     if (next.getPrev() != null) {
                         next = next.getPrev();
@@ -163,8 +166,31 @@ class LinkedList<T> implements SimpleCollection<T> {
                     next = next.getNext();
                 }
             }
-            counter -= coef;
+            stopCounter -= coef;
         }
+        System.out.println(test);
+    }
+
+    public void reverse(int coef){
+        int stopCounter = this.size;
+        Node<T> next = this.head;
+        int index = 0;
+        int test = 0;
+        while (coef <= stopCounter) {
+            for (int i = 0; i < coef; i++) {
+                test++;
+                this.add(next.getData(), index);
+                if (next.getNext() != null){
+                    next = next.getNext();
+                    unlink(next.getPrev());
+                }else {
+                    unlink(next);
+                }
+            }
+            index +=coef;
+            stopCounter -= coef;
+        }
+        System.out.println(test);
     }
 
 

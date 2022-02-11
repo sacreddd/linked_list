@@ -7,12 +7,30 @@ public class Test{
     public static void main(String[] args) {
         final Random random = new Random();
         LinkedList<Integer> link = new LinkedList<>();
-        for (int i = 0; i < 15; i++) {
+
+        for (int i = 0; i < 100000; i++) {
             link.add(i+1);
         }
-        System.out.println(Arrays.toString(link.toArray()));
-        link.reverse(5);
-        System.out.println(Arrays.toString(link.toArray()));
+//        System.out.println(Arrays.toString(link.toArray()));
+//        link.reverse(5);
+//        System.out.println(Arrays.toString(link.toArray()));
+
+        long startTime = System.currentTimeMillis();
+        link.reverse(4);
+        long endTime = System.currentTimeMillis();
+        System.out.println("That took " + (endTime - startTime) + " milliseconds");
+//
+        LinkedList<Integer> link3 = new LinkedList<>();
+        for (int i = 0; i < 100000; i++) {
+            link3.add(i+1);
+        }
+        startTime = System.currentTimeMillis();
+        link3.notOptimizedReverse(4);
+        endTime = System.currentTimeMillis();
+        System.out.println("That took " + (endTime - startTime) + " milliseconds");
+
+
+//        System.out.println(Arrays.toString(link2.toArray()));
 //        System.out.println(link.isEmpty());
 //        System.out.println(link.contains(3));
 ////        link.addInd(5, 40);
